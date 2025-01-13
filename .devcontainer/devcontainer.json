@@ -1,0 +1,14 @@
+{
+    "name": "iut-taif",
+    "build":{
+        "dockerfile": "Dockerfile",
+        "context": "../"
+    }, 
+    "customizations": {
+        "vscode": {
+            "extensions": [
+            ]
+        }
+    },
+    "postCreateCommand": "poetry install"
+}
