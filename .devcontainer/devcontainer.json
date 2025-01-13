@@ -9,6 +9,6 @@
             "extensions": [
             ]
         }
-    },
-    "postCreateCommand": "poetry install"
+    }
+    // "postCreateCommand": "poetry install"
 }
