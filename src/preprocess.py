@@ -48,6 +48,7 @@ for file_path in file_paths:
     parts = os.path.normpath(file_path).split(os.sep)
 
     # Read the content of the file (second column)
+    simple_logger(f"reading {file_path}")
     with open(file_path, "r") as file:
         content = [float(line.split()[1]) for line in file if line.strip()]
 
@@ -58,25 +59,25 @@ for file_path in file_paths:
     # Combine subdirs, file name, and content into a row
     row = subdirs + [file_name] + content
     data.append(row)
+with open(file_path, "r") as file:
+    origin = [str(line.split()[0]) for line in file if line.strip()]
 
-# Determine the maximum number of subdirectories to define column names
-max_subdirs = max(len(row) - len(content) - 1 for row in data)  # Subtract for "Name" and content
-
-# Determine the maximum number of content columns
-max_content_cols = max(len(row) - max_subdirs - 1 for row in data)
-
+simple_logger("read all files finish.")
 # Create column names: Subdir1, Subdir2, ..., Name, Content1, Content2, ...
-columns = [f"Subdir{i+1}" for i in range(max_subdirs)] + ["Name"] + [f"Content{i+1}" for i in range(max_content_cols)]
+simple_logger("creating columns ...")
+columns = subdirs + ["Name"] + origin
+simple_logger("create columns done.")
 
 # Ensure all rows have the same number of columns by padding with None
 padded_data = [row + [None] * (len(columns) - len(row)) for row in data]
 
 # Create the Polars DataFrame with explicit orientation
-df = pl.DataFrame(padded_data, schema=columns, orient="row")
-
+simple_logger("creating row data frame ...")
+df = pl.DataFrame(padded_data, schema=columns)
+simple_logger("row data frame created.")
 # Print the DataFrame shape and first few rows
 print(f"DataFrame shape: {df.shape}")
-print(df.head())
+
 
 # if __name__ == "__main__":
 #     extractor()
