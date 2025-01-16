@@ -162,7 +162,8 @@ def group_and_calculate_mean(df):
     simple_logger(f"Grouped and sorted DataFrame shape: {sorted_df.shape}")
     return sorted_df
 
-if __name__ == "__main__":
+def preprocess(zip_path=None ):
+    path_to_zip_file = zip_path if not None else f"./DATA/{zip_name}.zip"
     # Ensure the results directory exists
     os.makedirs("./results", exist_ok=True)
 
@@ -185,7 +186,35 @@ if __name__ == "__main__":
     grouped_df = group_and_calculate_mean(relative_df)
 
     # Save the grouped DataFrame to a CSV file
-    row_df.write_csv("./results/imported.csv")
-    relative_df.write_csv("./results/nrelativ.csv")
+    # row_df.write_csv("./results/imported.csv")
+    # relative_df.write_csv("./results/nrelativ.csv")
+    grouped_df.write_csv("./results/relative.csv")
+    simple_logger("Grouped DataFrame saved to ./results/relativ.csv")
+
+if __name__ == "__main__":
+        # Ensure the results directory exists
+    os.makedirs("./results", exist_ok=True)
+
+    # Extract the ZIP file
+    simple_logger("Starting extraction process...")
+    extractor()
+
+    # Create the row DataFrame
+    simple_logger("Creating row DataFrame...")
+    row_df = creat_row_data_fram()
+    # row_df.write_csv("./results/row.csv")
+    simple_logger("Row DataFrame saved to ./results/row.csv")
+
+    # Calculate relative values
+    simple_logger("Calculating relative values...")
+    relative_df = cal_relative(row_df)
+
+    # Group and calculate mean
+    simple_logger("Grouping and calculating mean values...")
+    grouped_df = group_and_calculate_mean(relative_df)
+
+    # Save the grouped DataFrame to a CSV file
+    # row_df.write_csv("./results/imported.csv")
+    # relative_df.write_csv("./results/nrelativ.csv")
     grouped_df.write_csv("./results/relativ.csv")
     simple_logger("Grouped DataFrame saved to ./results/relativ.csv")

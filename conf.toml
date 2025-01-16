@@ -1,2 +1,5 @@
 [inputs]
 zip_name = 'data'         # name of zip file without ".zip"
+
+[api]
+telegram_token = ''
