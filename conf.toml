@@ -2,4 +2,4 @@
 zip_name = 'data'         # name of zip file without ".zip"
 
 [api]
-telegram_token = ''
+telegram_token = '7682778533:AAHTRXd26dBiPRP3cDsAKnIajHkexyVJ73I'

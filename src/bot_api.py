@@ -60,7 +60,7 @@ async def handle_link(update: Update, context: CallbackContext) -> None:
                     await update.message.reply_document(document=result_file)
 
         # Clean up
-        os.remove(file_path)  # Remove the downloaded ZIP file
+        os.remove("./DATA")  # Remove the downloaded ZIP file
         for result_file_name in os.listdir(results_dir):
             result_file_path = os.path.join(results_dir, result_file_name)
             if os.path.isfile(result_file_path):
